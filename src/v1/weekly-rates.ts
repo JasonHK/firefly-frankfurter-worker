@@ -26,6 +26,7 @@ export default class WeeklyRates extends OpenAPIRoute
                 })),
             },
             ...InputValidationException.schema(),
+            ...InternalServerErrorException.schema(),
         },
     } satisfies OpenAPIRouteSchema;
 
