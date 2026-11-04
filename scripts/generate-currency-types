@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+import fs from "node:fs/promises";
+import path from "node:path";
+import { FrankfurterClient } from "frankfurter-js";
+
+import { z } from "zod";
+import { serialize } from "@zod-codepen/zod-v4";
+
+const DIRNAME = path.join("src/_types");
+const PATH = path.join(DIRNAME, "currency.generated.ts");
+
+console.info("Generating currency types...");
+
+const client = new FrankfurterClient();
+const currencies = (await client.currencies()).map((currency) => currency.iso_code);
+
+const Currency = z.enum(currencies);
+
+const source = `
+import { z } from "zod";
+
+type Currency = z.infer<typeof Currency>;
+const Currency = ${serialize(Currency)};
+
+export default Currency;
+`.substring(1);
+
+await fs.mkdir(DIRNAME, { recursive: true });
+await fs.writeFile(PATH, source);
+
+console.info(`Types written to ${PATH}`);

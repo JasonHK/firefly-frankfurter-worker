@@ -1,0 +1,7 @@
+#:schema https://www.unpkg.com/wrangler/config-schema.json
+
+name = "firefly-frankfurter"
+main = "src/index.ts"
+upload_source_maps = true
+
+compatibility_date = "2026-11-02"

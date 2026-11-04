@@ -1,0 +1,39 @@
+{
+  "name": "firefly-frankfurter-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers adapter that provides Frankfurter exchange-rate data for Firefly III.",
+  "keywords": [],
+  "license": "MIT",
+  "author": "Jason Kwok <hello@jasonhk.me> (https://jasonhk.me/)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "pnpm run typegen && wrangler build",
+    "serve": "pnpm run typegen && wrangler dev",
+    "typegen": "wrangler types src/cloudflare-env.d.ts && node scripts/generate-currency-types"
+  },
+  "dependencies": {
+    "chanfana": "^3.4.2",
+    "frankfurter-js": "^0.1.1",
+    "hono": "^4.13.16",
+    "temporal-polyfill": "^1.0.6",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.5.0",
+    "@tsconfig/recommended": "^1.0.13",
+    "@types/node": "^26.6.6",
+    "@zod-codepen/zod-v4": "^1.1.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.156.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error",
+      "version": "12.x"
+    }
+  },
+  "private": true,
+  "type": "module"
+}
